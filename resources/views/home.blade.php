@@ -30,12 +30,14 @@
             $('.users-table').DataTable({
                 processing: true,
                 serverSide: true,
+                searching: false,
+                paging: false,
                 ajax: '{!! route('get_rows') !!}',
                 columns: [
                     {data: 0, name: 'id'},
                     @if(is_object($columns))
                         @foreach($columns as $key => $column)
-                    {data: '{!! $key + 1  !!}', name: '{!! $column->name !!}'},
+                    {data: '{!! $key + 1  !!}', name: '{!! $column->slug !!}'},
                         @endforeach
                     @endif
                 ]

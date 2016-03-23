@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Schema;
-use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\DB;
 
 class RowsController extends Controller
 {
@@ -31,9 +30,20 @@ class RowsController extends Controller
     }
 
     public function store(Request $data){
+        $columns = Columns::all();
+        $rules = array();
+        foreach($columns as $col){
+            $rules[$col->slug] = $col->type;
+        }
+
+        $this->validate($data, $rules);
+
+
         $data = $data->toArray();
         unset($data['_token']);
-        Rows::create($data);
+//        dd($data);
+//        Rows::create($data);
+        DB::table('rows')->insert($data);
 
         return redirect()->route('admin.rows.index');
     }
@@ -47,11 +57,21 @@ class RowsController extends Controller
     }
 
     public function update(Request $data, $id){
+
+        $columns = Columns::all();
+        $rules = array();
+        foreach($columns as $col){
+            $rules[$col->slug] = $col->type;
+        }
+
+        $this->validate($data, $rules);
+
         $data = $data->toArray();
         unset($data['_token']);
         unset($data['_method']);
 
-        Rows::where('id', $id)->update($data);
+        DB::table('rows')->where('id', $id)->update($data);
+//        Rows::where('id', $id)->update($data);
 
         return redirect()->route('admin.rows.index');
     }

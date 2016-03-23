@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -20,6 +21,12 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        User::create(array(
+                'name' => 'Admin',
+                'email' => 'admin@mail.ru',
+                'password' => bcrypt('123456789'),
+            ));
     }
 
     /**

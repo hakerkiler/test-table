@@ -10,7 +10,7 @@
                     <div class="panel-body">
                         @if($errors->has())
                             @foreach ($errors->all() as $error)
-                                <div>{{ $error }}</div>
+                                <div class="alert-danger">{{ $error }}</div>
                             @endforeach
                         @endif
                             {!! Form::model($column, array('route' => array('admin.columns.update', $column->id), 'method' => 'put', 'class' => 'form-horizontal')) !!}

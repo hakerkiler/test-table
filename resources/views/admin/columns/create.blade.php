@@ -7,6 +7,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Columns</div>
                     <div class="panel-body">
+                        @if($errors->has())
+                            @foreach ($errors->all() as $error)
+                                <div class="alert-danger">{{ $error }}</div>
+                            @endforeach
+                        @endif
                         {!! Form::open( array('route' => array('admin.columns.store'), 'method' => 'post', 'class' => 'form-horizontal')) !!}
 
                         <div class="form-group">

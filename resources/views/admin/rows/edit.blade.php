@@ -10,7 +10,7 @@
                     <div class="panel-body">
                         @if($errors->has())
                             @foreach ($errors->all() as $error)
-                                <div>{{ $error }}</div>
+                                <div class="alert-danger">{{ $error }}</div>
                             @endforeach
                         @endif
                             {!! Form::model($row, array('route' => array('admin.rows.update', $row->id), 'method' => 'put', 'class' => 'form-horizontal')) !!}
@@ -20,7 +20,7 @@
                                     <div class="form-group">
                                         {!! Form::label($column->name, $column->name, array('class' => 'control-label col-sm-2')) !!}
                                         <div class="col-sm-10">
-                                            {!! Form::text($column->name, old($column->name), array('class' => 'form-control')) !!}
+                                            {!! Form::text($column->slug, old($column->slug), array('class' => 'form-control')) !!}
                                         </div>
                                     </div>
                                 @endforeach

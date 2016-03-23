@@ -15,6 +15,7 @@ class CreateColumnsTable extends Migration
         Schema::create('columns', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug');
             $table->string('type');
             $table->integer('order');
             $table->timestamps();

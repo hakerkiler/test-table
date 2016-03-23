@@ -25,7 +25,7 @@
                                 <tr>
                                     <td class="text-center">{{ $row['id'] }}</td>
                                     @foreach($columns as $column)
-                                        <th>{{ isset($row[$column->name]) ? $row[$column->name] : '' }}</th>
+                                        <th>{{ isset($row[$column->slug]) ? $row[$column->slug] : '' }}</th>
                                     @endforeach
                                     <td class="text-center">
                                         {!! Form::open(['route' => ['admin.rows.destroy', $row['id']], 'method' => 'delete', 'class' => 'form-horizontal']) !!}

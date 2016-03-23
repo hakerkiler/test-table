@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class ColumnsController extends Controller
 {
@@ -29,13 +30,14 @@ class ColumnsController extends Controller
         $columns = new Columns();
 
         $columns->name = $data->name;
+        $columns->slug = Str::slug($data->name);
         $columns->type = $data->type;
         $columns->order = $data->order;
         if($columns->save()){
             Schema::table('rows', function($table) use ($columns)
             {
                 $type = $columns->type;
-                $table->$type($columns->name);
+                $table->$type($columns->slug);
             });
         }
 
@@ -54,17 +56,18 @@ class ColumnsController extends Controller
 
         Schema::table('users', function($table) use ($columns)
         {
-            $table->dropColumn($columns->name);
+            $table->dropColumn($columns->slug);
         });
 
         $columns->name = $data->name;
+        $columns->slug = Str::slug($data->name);
         $columns->type = $data->type;
         $columns->order = $data->order;
         if($columns->save()){
             Schema::table('rows', function($table) use ($columns)
             {
                 $type = $columns->type;
-                $table->$type($columns->name);
+                $table->$type($columns->slug);
             });
         }
 
